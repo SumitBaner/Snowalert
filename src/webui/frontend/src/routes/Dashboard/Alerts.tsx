@@ -39,8 +39,8 @@ class AlertsDashboard extends React.PureComponent<Props> {
     } = this.props;
     const allRules = [...queries, ...suppressions];
     const selectedRule =
-      allRules.find(r => r.viewName === selected) ||
-      queries.find(q => `'${selected}'` === ((q.fields || {}).select || {}).query_id);
+      allRules.find((r) => r.viewName === selected) ||
+      queries.find((q) => `'${selected}'` === ((q.fields || {}).select || {}).query_id);
 
     if (history.location.pathname === '/dashboard/alerts') {
       navigate('alerts/', {replace: true});
@@ -68,7 +68,7 @@ class AlertsDashboard extends React.PureComponent<Props> {
             <div>
               <LoadingOutlined /> Loading Rules...
             </div>
-            ) : (
+          ) : (
             <div>
               <RuleDashboard
                 target="ALERT"
@@ -156,6 +156,12 @@ class AlertsDashboard extends React.PureComponent<Props> {
                               type: 'string',
                               getValue: (q: Query) => q.fields.select.description,
                               setValue: (q: Query, v: string) => q.copy({fields: {select: {description: v}}}),
+                            },
+                            {
+                              title: 'Categories',
+                              type: 'string',
+                              getValue: (q: Query) => q.fields.select.cats,
+                              setValue: (q: Query, v: string) => q.copy({fields: {select: {cats: v}}}),
                             },
                             {
                               title: 'Detector',
